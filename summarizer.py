@@ -5,6 +5,8 @@ from pytube import YouTube
 import librosa
 import soundfile as sf
 
+import whisper
+
 #these libraries for downloading the mp3 file 
 from pytubefix import YouTube
 from pytubefix.cli import on_progress
@@ -70,6 +72,28 @@ def chunk_audio(filename, segment_length: int, output_dir):
     chunked_audio_files = find_audio_files(output_dir)
     return sorted(chunked_audio_files)
 
+def transcribe_audio(audio_files: list, output_file=None, model="tiny.en") -> list:
+
+    print("converting audio to text...")
+
+    # Load the whisper model
+    model = whisper.load_model(model)
+
+    transcripts = []
+    for audio_file in audio_files:
+        # Transcribe the audio file
+        result = model.transcribe(audio_file)
+        transcripts.append(result["text"])
+
+    if output_file is not None:
+        # Save all transcripts to a .txt file
+        with open(output_file, "w") as file:
+            for transcript in transcripts:
+                file.write(transcript + "\n")
+
+    return transcripts
+
+
 
 def summarize_youtube_video(youtube_url, outputs_dir):
     raw_audio_dir = f"{outputs_dir}/raw_audio/"
@@ -90,3 +114,6 @@ def summarize_youtube_video(youtube_url, outputs_dir):
     chunked_audio_files = chunk_audio(
         audio_filename, segment_length=segment_length, output_dir=chunks_dir
     )
+    
+    # transcribe each chunked audio file using whisper speech2text
+    transcriptions = transcribe_audio(chunked_audio_files, transcripts_file)
