@@ -1,7 +1,7 @@
 import os
 import shutil
 from pytube import YouTube
-
+from groq import Groq #for the ai
 import librosa
 import soundfile as sf
 
@@ -93,6 +93,39 @@ def transcribe_audio(audio_files: list, output_file=None, model="tiny.en") -> li
 
     return transcripts
 
+def summarize(
+    chunks: list[str], system_prompt: str, model="gpt-3.5-turbo", output_file=None
+):
+    api_key = "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" #my api key from groq
+    client = Groq(api_key=api_key)
+    
+    summaries = []
+
+    for chunk in chunks:
+        response = client.chat.completions.create(
+            model="llama-3.1-70b-versatile",
+            messages=[
+                {"role": "system", "content": system_prompt},
+                {"role": "user", "content": chunk},
+            ],
+            temperature=1,
+            max_tokens=1024,
+            top_p=1,
+            stream=False,
+            stop=None,
+        )
+
+        # Access the summary content from the response object
+        summary = "".join([choice.message.content for choice in response.choices])
+        summaries.append(summary)
+
+    if output_file is not None:
+        with open(output_file, "w") as file:
+            for summary in summaries:
+                file.write(summary + "\n")
+
+    return summaries
+
 
 
 def summarize_youtube_video(youtube_url, outputs_dir):
@@ -117,3 +150,44 @@ def summarize_youtube_video(youtube_url, outputs_dir):
     
     # transcribe each chunked audio file using whisper speech2text
     transcriptions = transcribe_audio(chunked_audio_files, transcripts_file)
+    
+    # summarize each transcription using chatGPT
+    system_prompt = """
+    You are a helpful assistant that summarizes youtube videos.
+    You are provided chunks of raw audio that were transcribed from the video's audio.
+    Summarize the current chunk to succint and clear bullet points of its contents.
+    """
+    summaries = summarize(
+        transcriptions, system_prompt=system_prompt, output_file=summary_file
+    )
+
+    system_prompt_tldr = """
+    You are a helpful assistant that summarizes youtube videos.
+    Someone has already summarized the video to key points.
+    Summarize the key points to one or two sentences that capture the essence of the video.
+    """
+    # put the entire summary to a single entry
+    long_summary = "\n".join(summaries)
+    short_summary = summarize(
+        [long_summary], system_prompt=system_prompt_tldr, output_file=summary_file
+    )[0]
+
+    return long_summary, short_summary
+
+
+youtube_url = "https://www.youtube.com/watch?v=g1pb2aK2we4"
+outputs_dir = "outputs/"
+
+long_summary, short_summary = summarize_youtube_video(youtube_url, outputs_dir)
+
+print("Summaries:")
+print("=" * 80)
+print("Long summary:")
+print("=" * 80)
+print(long_summary)
+print()
+
+print("=" * 80)
+print("Video - TL;DR")
+print("=" * 80)
+print(short_summary)
