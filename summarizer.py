@@ -175,19 +175,20 @@ def summarize_youtube_video(youtube_url, outputs_dir):
     return long_summary, short_summary
 
 
-youtube_url = "https://www.youtube.com/watch?v=g1pb2aK2we4"
-outputs_dir = "outputs/"
+# youtube_url = "https://www.youtube.com/watch?v=g1pb2aK2we4"
+# outputs_dir = "outputs/"
 
-long_summary, short_summary = summarize_youtube_video(youtube_url, outputs_dir)
+# long_summary, short_summary = summarize_youtube_video(youtube_url, outputs_dir)
 
-print("Summaries:")
-print("=" * 80)
-print("Long summary:")
-print("=" * 80)
-print(long_summary)
-print()
+# print("Summaries:")
+# print("=" * 80)
+# print("Long summary:")
+# print("=" * 80)
+# print(long_summary)
+# print()
 
-print("=" * 80)
-print("Video - TL;DR")
-print("=" * 80)
-print(short_summary)
+# print("=" * 80)
+# print("Video - TL;DR")
+# print("=" * 80)
+# print(short_summary)
+

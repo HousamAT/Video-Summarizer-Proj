@@ -1,9 +1,11 @@
 import tkinter as tk
 from tkinter import messagebox, filedialog
+from summarizer import summarize_youtube_video
 
 def display_url():
     url = entry.get()
-    messagebox.showinfo("Entered URL", f"You entered: {url}")
+    #messagebox.showinfo("Entered URL", f"You entered: {url}")
+    summarize_youtube_video(url, "outputs/")
     
 def upload_file():
     file_path = filedialog.askopenfilename()
