@@ -11,8 +11,8 @@ Make sure you have Python 3.7 or higher installed.
 1. **Clone the Repository:**
 
     ```bash
-    git clone https://github.com/yourusername/yourrepository.git
-    cd yourrepository
+    git clone https://github.com/HousamAT/Video-Summarizer-Proj.git
+    cd Video-Summarizer-Proj
     ```
 
 
