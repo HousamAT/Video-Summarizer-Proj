@@ -140,6 +140,7 @@ def summarize_youtube_video(youtube_url, outputs_dir):
         shutil.rmtree(outputs_dir)
         os.mkdir(outputs_dir)
 
+   
     # download the video using youtube-dl
     audio_filename = youtube_to_mp3(youtube_url, output_dir=raw_audio_dir)
     
@@ -175,20 +176,24 @@ def summarize_youtube_video(youtube_url, outputs_dir):
     return long_summary, short_summary
 
 
-# youtube_url = "https://www.youtube.com/watch?v=g1pb2aK2we4"
-# outputs_dir = "outputs/"
 
-# long_summary, short_summary = summarize_youtube_video(youtube_url, outputs_dir)
 
-# print("Summaries:")
-# print("=" * 80)
-# print("Long summary:")
-# print("=" * 80)
-# print(long_summary)
-# print()
+if __name__ == "__main__":
+    youtube_url = "https://www.youtube.com/watch?v=g1pb2aK2we4"
+    outputs_dir = "outputs/"
 
-# print("=" * 80)
-# print("Video - TL;DR")
-# print("=" * 80)
-# print(short_summary)
+    long_summary, short_summary = summarize_youtube_video(youtube_url, outputs_dir)
+
+
+    print("Summaries:")
+    print("=" * 80)
+    print("Long summary:")
+    print("=" * 80)
+    print(long_summary)
+    print()
+
+    print("=" * 80)
+    print("Video - TL;DR")
+    print("=" * 80)
+    print(short_summary)
 

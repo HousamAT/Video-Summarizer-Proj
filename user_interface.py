@@ -11,6 +11,7 @@ def upload_file():
     file_path = filedialog.askopenfilename()
     if file_path:
         messagebox.showinfo("Selected File", f"You selected: {file_path}")
+    
 
 root = tk.Tk()
 root.title("Video Summarizer")
