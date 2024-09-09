@@ -96,7 +96,7 @@ def transcribe_audio(audio_files: list, output_file=None, model="tiny.en") -> li
 def summarize(
     chunks: list[str], system_prompt: str, model="gpt-3.5-turbo", output_file=None
 ):
-    api_key = "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" #my api key from groq
+    api_key = "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" #my api key from groq
     client = Groq(api_key=api_key)
     
     summaries = []
@@ -174,26 +174,7 @@ def summarize_youtube_video(youtube_url, outputs_dir):
     )[0]
 
     return long_summary, short_summary
+    
 
-
-
-
-if __name__ == "__main__":
-    youtube_url = "https://www.youtube.com/watch?v=g1pb2aK2we4"
-    outputs_dir = "outputs/"
-
-    long_summary, short_summary = summarize_youtube_video(youtube_url, outputs_dir)
-
-
-    print("Summaries:")
-    print("=" * 80)
-    print("Long summary:")
-    print("=" * 80)
-    print(long_summary)
-    print()
-
-    print("=" * 80)
-    print("Video - TL;DR")
-    print("=" * 80)
-    print(short_summary)
-
+#test link
+#https://www.youtube.com/watch?v=g1pb2aK2we4&t=58s

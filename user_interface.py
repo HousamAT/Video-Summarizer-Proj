@@ -5,7 +5,9 @@ from summarizer import summarize_youtube_video
 def display_url():
     url = entry.get()
     #messagebox.showinfo("Entered URL", f"You entered: {url}")
-    summarize_youtube_video(url, "outputs/")
+    long_summary, short_summary = summarize_youtube_video(url, "outputs/")
+    print("this is long summary: \n", long_summary)
+    print("this is short summary: \n ", short_summary)
     
 def upload_file():
     file_path = filedialog.askopenfilename()
