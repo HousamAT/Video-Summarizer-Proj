@@ -12,6 +12,7 @@ from pytubefix import YouTube
 from pytubefix.cli import on_progress
 
 
+
 #given a directory list all the mp3 files in that directory
 def find_audio_files(path, extension=".mp3"):
     """Recursively find all files with extension in path."""
@@ -96,7 +97,7 @@ def transcribe_audio(audio_files: list, output_file=None, model="tiny.en") -> li
 def summarize(
     chunks: list[str], system_prompt: str, model="gpt-3.5-turbo", output_file=None
 ):
-    api_key = "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" #my api key from groq
+    api_key = "Replace_With_Your_Own_API_Key" #get api key from groq
     client = Groq(api_key=api_key)
     
     summaries = []

@@ -3,15 +3,18 @@ from tkinter import messagebox, filedialog, font
 from summarizer import summarize_youtube_video
 
 def display_url():
-    url = entry.get()
-    long_summary, short_summary = summarize_youtube_video(url, "outputs/")
-    print("This is long summary:\n", long_summary)
-    print("This is short summary:\n", short_summary)
+    try:
+        url = entry.get()
+        long_summary, short_summary = summarize_youtube_video(url, "outputs/")
+        print("This is long summary:\n", long_summary)
+        print("This is short summary:\n", short_summary)
+    except Exception as e: 
+        print("An error occurred:", e)
 
 def upload_file():
     file_path = filedialog.askopenfilename()
     if file_path:
-        messagebox.showinfo("Selected File", f"You selected: {file_path}")
+        messagebox.showinfo("Selected File", f"You selected: {file_path} this feuture is currently unavailable")
 
 root = tk.Tk()
 root.title("Video Summarizer")

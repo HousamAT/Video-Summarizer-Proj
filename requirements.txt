@@ -1,0 +1,7 @@
+pytube
+groq
+librosa
+soundfile
+whisper
+pytubefix
+tkinter
